@@ -380,6 +380,13 @@ export class DockerSocketHandler extends AgentSocketHandler {
         return stack;
     }
 
+    /**
+     * Log Docker in to a registry using stdin for the password so it is not exposed in process arguments.
+     * @param registryServer Registry host to log in to, or an empty string for Docker Hub
+     * @param username Registry username
+     * @param password Registry password or access token
+     * @returns Resolves when docker login succeeds
+     */
     dockerLogin(registryServer : string, username : string, password : string) : Promise<void> {
         const args = [ "login", "--username", username, "--password-stdin" ];
         if (registryServer !== "") {

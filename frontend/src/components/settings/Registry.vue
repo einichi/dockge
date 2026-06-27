@@ -96,12 +96,21 @@ export default {
     },
 
     computed: {
+        /**
+         * List available Dockge endpoints that can receive the docker login command.
+         * @returns {object[]} Available local and remote agent endpoints
+         */
         endpointList() {
             return Object.values(this.$root.agentList);
         },
     },
 
     methods: {
+        /**
+         * Get the display label for an endpoint option.
+         * @param {object} agent Agent metadata
+         * @returns {string} Endpoint display label
+         */
         endpointDisplay(agent) {
             if (!agent.endpoint) {
                 return this.$t("currentEndpoint");
@@ -109,6 +118,10 @@ export default {
             return agent.name || agent.endpoint;
         },
 
+        /**
+         * Submit the registry credentials to the selected Dockge endpoint.
+         * @returns {void}
+         */
         login() {
             this.loggingIn = true;
             const timeout = setTimeout(() => {
